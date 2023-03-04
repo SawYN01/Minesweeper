@@ -133,14 +133,14 @@ public class MSButton
           myLabel = "" + countMines(myRow,myCol);
           if(!clicked) 
             remainder++;
-          if(reminder == 400-mines.size())
+          if(remainder == 400-mines.size())
             displayWinningMessage();
           clicked = true;
         } 
         else {
           if(!clicked) 
             remainder++;
-          if(reminder == 400-mines.size())
+          if(remainder == 400-mines.size())
             displayWinningMessage(); 
           clicked = true;
         
