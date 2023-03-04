@@ -40,8 +40,11 @@ public void draw ()
 }
 public boolean isWon()
 {
-    //your code here
-    return false;
+    for(int r = 0; r < NUM_ROWS; r++)
+        for(int c = 0; c < NUM_COLS; c++)
+            if(!mines.contains(buttons[r][c]) && buttons[r][c].isClicked() == false)
+                return false;
+     return true;
 }
 public void displayLosingMessage()
 {
@@ -165,5 +168,9 @@ public class MSButton
     public boolean isFlagged()
     {
         return flagged;
+    }
+     public boolean isClicked()
+    {
+        return clicked;
     }
 }
