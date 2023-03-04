@@ -121,7 +121,7 @@ public class MSButton
         if(isLost == false) {
             if(mouseButton == RIGHT && buttons[myRow][myCol].isClicked()) {}
               else if(mouseButton == RIGHT) 
-                flagged = true;
+                flagged = !flagged;
               else if(flagged == true) {}
               else if(mines.contains(this)) {
                 clicked = true; 
@@ -139,9 +139,9 @@ public class MSButton
           if(!clicked) 
             remainder++;
           if(reminder == 400-mines.size())
-            displayWinningMessage();
+            displayWinningMessage(); 
           clicked = true;
-        }
+        
           if(isValid(myRow-1, myCol-1)==true && !buttons[myRow-1][myCol-1].clicked == true) //up left
            buttons[myRow-1][myCol-1].mousePressed();
            
@@ -167,6 +167,7 @@ public class MSButton
            buttons[myRow+1][myCol-1].mousePressed();
         }
     }
+}
     public void draw () 
     {    
         if (flagged)
