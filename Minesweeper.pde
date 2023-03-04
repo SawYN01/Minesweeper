@@ -8,7 +8,7 @@ private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton> (); ; //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
-{   loop();
+{  
     size(400, 400);
     textAlign(CENTER,CENTER);
     
@@ -37,11 +37,10 @@ public void draw ()
     background( 0 );
     if(isWon() == true) {
         displayWinningMessage();
-        noLoop();
+       
      }   
     if(isLose == true) {
         displayLosingMessage();
-        noLoop();
       }
 }
 public boolean isWon()
