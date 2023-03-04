@@ -36,20 +36,18 @@ public void draw ()
 {
     background( 0 );
     if(isWon() == true) {
-        displayWinningMessage();
-       
+        displayWinningMessage();    
      }   
-    if(isLose == true) {
-        displayLosingMessage();
-      }
 }
 public boolean isWon()
 {
-    for(int r = 0; r < NUM_ROWS; r++)
-        for(int c = 0; c < NUM_COLS; c++)
-            if(!mines.contains(buttons[r][c]) && mines[r][c].isClicked() == false)
+    for(int r = 0; r < NUM_ROWS; r++) { 
+        for(int c = 0; c < NUM_COLS; c++){
+            if(!mines.contains(buttons[r][c]) && mines[r][c].isClicked() == false) 
                 return false;
-     return true;
+            }
+     }
+     return true; 
 }
 public void displayLosingMessage()
 {  
@@ -113,12 +111,16 @@ public class MSButton
     public void mousePressed () 
     {
         clicked = true;
-        if(mouseButton == RIGHT)
-          flagged = true;
+        if(mouseButton == RIGHT) {
+          if(flagged == false)
+            flagged = true;
+          else if(flagged == true) {
+            clicked = false;
+            flagged = false;
+          }
+        }
         else if(mines.contains(this))  
-             for(int i =0; i < mines.size(); i++) 
-                mines.get(i).setClicked(true);
-             isLose = true;
+             displayLosingMessage();
         else if(countMines(myRow, myCol) >0)
           myLabel = "" + countMines(myRow,myCol);
         else {
