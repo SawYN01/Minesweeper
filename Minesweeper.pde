@@ -47,9 +47,9 @@ public boolean isWon()
 {
     for(int r = 0; r < NUM_ROWS; r++)
         for(int c = 0; c < NUM_COLS; c++)
-            if(mines.contains(buttons[r][c]) && mines[r][c].isClicked())
+            if(!mines.contains(buttons[r][c]) && mines[r][c].isClicked() == false)
                 return false;
-             return true;
+     return true;
 }
 public void displayLosingMessage()
 {  
@@ -116,7 +116,9 @@ public class MSButton
         if(mouseButton == RIGHT)
           flagged = true;
         else if(mines.contains(this))  
-          displayLosingMessage(); 
+             for(int i =0; i < mines.size(); i++) 
+                mines.get(i).setClicked(true);
+             isLose = true;
         else if(countMines(myRow, myCol) >0)
           myLabel = "" + countMines(myRow,myCol);
         else {
