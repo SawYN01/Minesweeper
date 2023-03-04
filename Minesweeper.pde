@@ -172,10 +172,10 @@ public class MSButton
             fill(0);
         else if(!flagged && clicked && mines.contains(this) ) 
             fill(255,0,0);
-        //else if(!flagged && clicked && !mines.contains(this) ) 
-            //fill(200);
-        //else if(flagged && mines.contains(this) ) 
-            //fill(100);
+        else if(!flagged && clicked && !mines.contains(this) ) 
+            fill(200);
+        else if(flagged && mines.contains(this) ) 
+            fill(100);
         else if(clicked)
             fill( 200 );
         else 
