@@ -39,10 +39,6 @@ public void draw ()
     background( 0 );
     if(isWon() == true)
         displayWinningMessage();
-   
-   for (int r = 0; i < NUM_ROWS; i++) 
-     for (int c = 0; j < NUM_COLS; j++) 
-        buttons[r][c].draw();
 
 }
 public boolean isWon()
