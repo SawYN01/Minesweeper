@@ -3,12 +3,12 @@ import de.bezier.guido.*;
 public final static int NUM_ROWS = 20; 
 public final static int NUM_COLS = 20; 
 public final static int NUM_MINES = 30; 
-boolean lose = false;
+private boolean isLose = false;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton> (); ; //ArrayList of just the minesweeper buttons that are mined
 
 void setup ()
-{
+{   loop();
     size(400, 400);
     textAlign(CENTER,CENTER);
     
@@ -29,24 +29,31 @@ public void setMines()
     int c = (int)(Math.random()*NUM_COLS);
       if(!mines.contains(buttons[r][c])) {
         mines.add(buttons[r][c]);
-        //return r + ", " + c;
       }
 }
 }
 public void draw ()
 {
     background( 0 );
-    if(isWon() == true)
+    if(isWon() == true) {
         displayWinningMessage();
+        noLoop();
+     }   
+    if(isLose == true) {
+        displayLosingMessage();
+        noLoop();
+      }
 }
 public boolean isWon()
 {
-    //your code here
-    return false;
+    for(int r = 0; r < NUM_ROWS; r++)
+        for(int c = 0; c < NUM_COLS; c++)
+            if(mines.contains(buttons[r][c]) && mines[r][c].isClicked())
+                return false;
+             return true;
 }
 public void displayLosingMessage()
 {  
-   lose = true;
    buttons[NUM_ROWS/2][(NUM_COLS/2)-4].setLabel("Y");
    buttons[NUM_ROWS/2][(NUM_COLS/2)-3].setLabel("O");
    buttons[NUM_ROWS/2][(NUM_COLS/2)-2].setLabel("U");
@@ -81,8 +88,6 @@ public int countMines(int row, int col)
     for(int c = col-1; c<=col+1;c++)
       if(isValid(r,c) && mines.contains(buttons[r][c]))
         numMines++;
-    if(mines.contains(buttons[row][col]))
-      numMines--;
     return numMines;
 }
 public class MSButton
@@ -167,5 +172,9 @@ public class MSButton
     public boolean isFlagged()
     {
         return flagged;
+    }
+     public boolean isClicked()
+    {
+        return clicked;
     }
 }
