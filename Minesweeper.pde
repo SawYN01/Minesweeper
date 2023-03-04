@@ -2,7 +2,9 @@ import de.bezier.guido.*;
 //Declare and initialize constants NUM_ROWS and NUM_COLS = 20
 public final static int NUM_ROWS = 20; 
 public final static int NUM_COLS = 20; 
-public final static int NUM_MINES = 30; 
+public final static int NUM_MINES = 30;
+boolean isLost = false;
+int remainder = 0;
 private MSButton[][] buttons; //2d array of minesweeper buttons
 private ArrayList <MSButton> mines = new ArrayList <MSButton> (); ; //ArrayList of just the minesweeper buttons that are mined
 
@@ -47,7 +49,11 @@ public boolean isWon()
      return true;
 }
 public void displayLosingMessage()
-{
+{  
+    for(int i = 0; i < mines.size(); i++)
+        if(mines.get(i).isClicked() == false)
+            mines.get(i).mousePressed();
+    isLost = true;
    buttons[NUM_ROWS/2][(NUM_COLS/2)-4].setLabel("Y");
    buttons[NUM_ROWS/2][(NUM_COLS/2)-3].setLabel("O");
    buttons[NUM_ROWS/2][(NUM_COLS/2)-2].setLabel("U");
@@ -55,11 +61,12 @@ public void displayLosingMessage()
    buttons[NUM_ROWS/2][(NUM_COLS/2)].setLabel("L");
    buttons[NUM_ROWS/2][(NUM_COLS/2)+1].setLabel("O");
    buttons[NUM_ROWS/2][(NUM_COLS/2)+2].setLabel("S");
-   buttons[NUM_ROWS/2][(NUM_COLS/2)+3].setLabel("E");
+   buttons[NUM_ROWS/2][(NUM_COLS/2)+3].setLabel("T");
    buttons[NUM_ROWS/2][(NUM_COLS/2)+4].setLabel("!");
 }
 public void displayWinningMessage()
 {
+   isLost = true;
    buttons[NUM_ROWS/2][(NUM_COLS/2)-4].setLabel("Y");
    buttons[NUM_ROWS/2][(NUM_COLS/2)-3].setLabel("O");
    buttons[NUM_ROWS/2][(NUM_COLS/2)-2].setLabel("U");
@@ -107,16 +114,32 @@ public class MSButton
     }
 
     // called by manager
+    
     public void mousePressed () 
     {
-        clicked = true;
-        if(mouseButton == RIGHT)
-          flagged = true;
-        else if(mines.contains(this))  
-          displayLosingMessage(); 
-        else if(countMines(myRow, myCol) >0)
+        if(isLost == false) {
+            if(mouseButton == RIGHT && buttons[myRow][myCol].isClicked()) {}
+              else if(mouseButton == RIGHT) 
+                flagged = true;
+              else if(mines.contains(this)) {
+                clicked = true; 
+                displayLosingMessage();
+              } 
+        else if(countMines(myRow, myCol) >0) {
           myLabel = "" + countMines(myRow,myCol);
+          if(!clicked) 
+            remainder++;
+          if(reminder == 400-mines.size())
+            displayWinningMessage();
+          clicked = true;
+        } 
         else {
+          if(!clicked) 
+            remainder++;
+          if(reminder == 400-mines.size())
+            displayWinningMessage();
+          clicked = true;
+        }
           if(isValid(myRow-1, myCol-1)==true && !buttons[myRow-1][myCol-1].clicked == true) //up left
            buttons[myRow-1][myCol-1].mousePressed();
            
