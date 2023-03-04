@@ -39,15 +39,17 @@ public void draw ()
     background( 0 );
     if(isWon() == true)
         displayWinningMessage();
+        
+     for (int r = 0; i < NUM_ROWS; r++) {
+     for (int c = 0; c < columns; c++) {
+        buttons[r][c].draw();
+      } 
+    }
 
 }
 public boolean isWon()
 {
-    for(int r = 0; r < NUM_ROWS; r++)
-        for(int c = 0; c < NUM_COLS; c++)
-            if(!mines.contains(buttons[r][c]) && buttons[r][c].isClicked() == false)
-                return false;
-     return true;
+    return false;
 }
 public void displayLosingMessage()
 {  
