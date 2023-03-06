@@ -2,7 +2,7 @@ import de.bezier.guido.*;
 //Declare and initialize constants NUM_ROWS and NUM_COLS = 20
 public final static int NUM_ROWS = 20; 
 public final static int NUM_COLS = 20; 
-public final static int NUM_MINES =10;
+public final static int NUM_MINES =20;
 boolean isLost = false;
 int remainder = 0;
 private MSButton[][] buttons; //2d array of minesweeper buttons
